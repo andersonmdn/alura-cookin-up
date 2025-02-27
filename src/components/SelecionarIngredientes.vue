@@ -5,22 +5,17 @@ import CardCategoria from './CardCategoria.vue';
 import BotaoPrincipal from './BotaoPrincipal.vue';
 
 export default {
+    name: 'SelecionarIngredientes',
     data() {
         return {
             categorias: [] as ICategoria[],
-        }
-    },
-    methods: {
-        buscarReceitas() {
-            // Add your recipe search logic here
-            console.log('Buscar receitas clicked');
         }
     },
     async created() {
       this.categorias = await obterCategorias();
     },
     components: { CardCategoria, BotaoPrincipal },
-    emits: ['adicionarIngrediente', 'removerIngrediente']
+    emits: ['adicionarIngrediente', 'removerIngrediente', 'buscarReceitas']
 }
 </script>
 
@@ -46,7 +41,7 @@ export default {
             *Atenção: considerados que você tem em casa sal, pimenta e água.
         </p>
 
-        <BotaoPrincipal texto="Buscar receitas!" @click="buscarReceitas" />
+        <BotaoPrincipal texto="Buscar receitas!" @click="$emit('buscarReceitas')" />
     </section>
 </template>
 

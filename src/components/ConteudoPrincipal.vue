@@ -6,15 +6,25 @@ import Tag from './Tag.vue';
 export default {
     data() {
         return {
-            ingredientes: ['Alho', 'Manteiga', 'Orégano']
+            ingredientes: [] as string[],
         }
     },
-    components: { SelecionarIngredientes, Tag }
+    components: { SelecionarIngredientes, Tag },
+    methods: {
+        removerIngrediente(ingrediente: string) {
+            this.ingredientes = this.ingredientes.filter(item => item !== ingrediente);
+        },
+        adicionarIngrediente(ingrediente: string) {
+            if (!this.ingredientes.includes(ingrediente)) {
+                this.ingredientes.push(ingrediente);
+            }
+        }
+    }
 }
 </script>
 
 <template>
-    <man class="conteudo-principal">
+    <main class="conteudo-principal">
         <section>
             <span class="subtitulo-lg sua-lista-texto">Sua lista</span>
 
@@ -30,8 +40,11 @@ export default {
             </p>
         </section>
         
-        <SelecionarIngredientes />
-    </man>
+        <SelecionarIngredientes
+          @adicionarIngrediente="adicionarIngrediente"
+          @removerIngrediente="removerIngrediente"
+        />
+    </main>
 </template>
 
 <style scoped>

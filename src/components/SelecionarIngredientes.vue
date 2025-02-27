@@ -2,6 +2,7 @@
 import { obterCategorias } from '@/http/index';
 import type ICategoria from '@/interfaces/ICategoria';
 import CardCategoria from './CardCategoria.vue';
+import BotaoPrincipal from './BotaoPrincipal.vue';
 
 export default {
     data() {
@@ -9,10 +10,16 @@ export default {
             categorias: [] as ICategoria[],
         }
     },
+    methods: {
+        buscarReceitas() {
+            // Add your recipe search logic here
+            console.log('Buscar receitas clicked');
+        }
+    },
     async created() {
       this.categorias = await obterCategorias();
     },
-    components: { CardCategoria },
+    components: { CardCategoria, BotaoPrincipal },
     emits: ['adicionarIngrediente', 'removerIngrediente']
 }
 </script>
@@ -38,6 +45,8 @@ export default {
         <p class="paragrafo dica">
             *Atenção: considerados que você tem em casa sal, pimenta e água.
         </p>
+
+        <BotaoPrincipal texto="Buscar receitas!" @click="buscarReceitas" />
     </section>
 </template>
 
